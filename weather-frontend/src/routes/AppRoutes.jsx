@@ -8,18 +8,19 @@ import {
 import Dashboard from "../components/Dashboard";
 import Login from "../components/Login";
 import Register from "../components/Register";
+import Welcome from "../pages/welcome"; // ✅ Import the Welcome page
 
-// ✅ Future flags enabled here
 const router = createBrowserRouter(
   [
     { path: "/", element: <Dashboard /> },
     { path: "/auth/login", element: <Login /> },
     { path: "/register", element: <Register /> },
+    { path: "/welcome", element: <Welcome /> }, // ✅ Add this route
   ],
   {
     future: {
-      v7_startTransition: true,       // ✅ Fixes warning
-      v7_relativeSplatPath: true,     // ✅ Future-proofing splat route behavior
+      v7_startTransition: true,
+      v7_relativeSplatPath: true,
     },
   }
 );

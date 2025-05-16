@@ -1,21 +1,36 @@
-// src/components/Login.jsx
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
 
-    // Simple dummy login validation (replace with your logic)
-    if (email === 'user@example.com' && password === 'password') {
-      alert('Login successful!');
-      // Redirect or update auth state here
-    } else {
-      alert('Invalid credentials! If you are not registered, please register first.');
+    try {
+      const response = await axios.post('http://localhost:5000/api/login', {
+        email,
+        password,
+      });
+
+      if (response.status === 200) {
+        alert('Login successful!');
+
+        // ✅ Save user info in localStorage (or context if using)
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+
+        // ✅ Navigate to welcome page
+        navigate('/welcome');
+      }
+    } catch (error) {
+      if (error.response && error.response.data && error.response.data.message) {
+        alert(error.response.data.message);
+      } else {
+        alert('An error occurred while logging in.');
+      }
     }
   };
 
