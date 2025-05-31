@@ -30,12 +30,10 @@ const Register = () => {
         password,
       });
 
-      // Agar backend success response bhej raha hai
       alert("Registration successful! Please login.");
       navigate("/auth/login");
     } catch (err) {
-      // Axios error handling
-      if (err.response && err.response.data && err.response.data.message) {
+      if (err.response?.data?.message) {
         setError(err.response.data.message);
       } else {
         setError("Network error");
@@ -46,94 +44,98 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-green-600 to-blue-500 px-4">
-      <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-8 space-y-6">
-        <h2 className="text-3xl font-extrabold text-center text-gray-900">
-          Create your account
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-tr from-emerald-600 via-green-500 to-blue-500 p-4">
+      <div className="bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl w-full max-w-lg p-8 md:p-10 border border-white/30 transition-all duration-500">
+        <h2 className="text-4xl font-bold text-white text-center mb-6 tracking-tight">
+          Create Your Account
         </h2>
 
         {error && (
-          <div className="text-red-600 text-center font-semibold">{error}</div>
+          <div className="bg-red-100 text-red-700 px-4 py-2 rounded mb-4 text-sm text-center font-medium shadow">
+            {error}
+          </div>
         )}
 
-        <form className="space-y-6" onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="name" className="text-white text-sm font-medium">
               Name
             </label>
             <input
               id="name"
               type="text"
-              required
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-              placeholder="Your name"
+              required
+              placeholder="John Doe"
+              className="mt-1 w-full px-4 py-2 rounded-lg bg-white/80 text-black placeholder-gray-500 shadow focus:outline-none focus:ring-2 focus:ring-white transition-all"
             />
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              Email address
+            <label htmlFor="email" className="text-white text-sm font-medium">
+              Email
             </label>
             <input
               id="email"
               type="email"
-              required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+              required
               placeholder="you@example.com"
+              className="mt-1 w-full px-4 py-2 rounded-lg bg-white/80 text-black placeholder-gray-500 shadow focus:outline-none focus:ring-2 focus:ring-white transition-all"
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="password" className="text-white text-sm font-medium">
               Password
             </label>
             <input
               id="password"
               type="password"
-              required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-              placeholder="Enter your password"
+              required
+              placeholder="********"
+              className="mt-1 w-full px-4 py-2 rounded-lg bg-white/80 text-black placeholder-gray-500 shadow focus:outline-none focus:ring-2 focus:ring-white transition-all"
             />
           </div>
 
           <div>
-            <label
-              htmlFor="confirmPassword"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Re-enter Password
+            <label htmlFor="confirmPassword" className="text-white text-sm font-medium">
+              Confirm Password
             </label>
             <input
               id="confirmPassword"
               type="password"
-              required
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-              placeholder="Re-enter your password"
+              required
+              placeholder="********"
+              className="mt-1 w-full px-4 py-2 rounded-lg bg-white/80 text-black placeholder-gray-500 shadow focus:outline-none focus:ring-2 focus:ring-white transition-all"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-white ${
-              loading ? "bg-gray-400" : "bg-green-600 hover:bg-green-700"
-            } focus:outline-none focus:ring-2 focus:ring-green-500`}
+            className={`w-full py-3 rounded-lg font-semibold tracking-wide text-white transition duration-300 ease-in-out shadow-lg ${
+              loading
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-gradient-to-r from-green-500 via-emerald-500 to-blue-500 hover:brightness-110"
+            }`}
           >
             {loading ? "Registering..." : "Register"}
           </button>
         </form>
 
-        <p className="text-center text-sm text-gray-600">
+        <p className="mt-6 text-center text-sm text-white">
           Already have an account?{" "}
-          <Link to="/auth/login" className="font-medium text-green-600 hover:text-green-500">
+          <Link
+            to="/auth/login"
+            className="font-semibold text-white hover:underline"
+          >
             Log in
           </Link>
         </p>
